@@ -16,14 +16,14 @@ inverted 5V uart
 #include <PubSubClient.h>
 
 //put settings in config.h in the same dir as the sketch or inline:
-
+#include "config.h"
 /*
 const char* ssid = "Your SSID";
 const char* password = "Your pass";
 IPAddress mqttserver(127,0,0,1); // fill in your MQTT server
+IPAddress influxdb(127,0,0,1); //influxdb server ip
+unsigned int influxport = 8888;
 */
-
-#include "config.h"
 
 WiFiClient wclient;
 PubSubClient client(wclient, mqttserver);

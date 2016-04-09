@@ -74,7 +74,7 @@ void CheckSerial(){
    while (Serial.available() > 0) {
     incomingByte = Serial.read();
     char inChar = (char)incomingByte;
-    inputString += inChar; 
+    inputString += inChar;
    }
    //each telegrams ends with an exclammation mark
    if (inputString.endsWith("!")) {
@@ -85,37 +85,31 @@ void CheckSerial(){
       int T1_pos = inputString.indexOf("1-0:1.8.1", 0);
       String T1 = inputString.substring(T1_pos + 10, T1_pos + 20);
       client.publish("/sensor/p1/T1",T1);
-      SendInflux("T1 value=" + T1);
 
       int T2_pos = inputString.indexOf("1-0:1.8.2", T1_pos + 1);
       String T2 = inputString.substring(T2_pos + 10, T2_pos + 20);
       client.publish("/sensor/p1/T2",T2);
-      SendInflux("T2 value=" + T2);
       
       int T7_pos = inputString.indexOf("1-0:2.8.1", T1_pos + 1);
       String T7 = inputString.substring(T7_pos + 10, T7_pos + 20);
       client.publish("/sensor/p1/T7",T7);
-      SendInflux("T7 value=" + T7);
 
       int T8_pos = inputString.indexOf("1-0:2.8.2", T7_pos + 1);
       String T8 = inputString.substring(T8_pos + 10, T8_pos + 20);
       client.publish("/sensor/p1/T8",T8);
-      SendInflux("T8 value=" + T8);
 
       int P1_pos = inputString.indexOf("1-0:1.7.0", T8_pos + 1);
       String P1 = inputString.substring(P1_pos + 10, P1_pos + 16);
       client.publish("/sensor/p1/P1",P1);
-      SendInflux("P1 value=" + P1);
 
       int P2_pos = inputString.indexOf("1-0:2.7.0", P1_pos + 1);
       String P2 = inputString.substring(P2_pos + 10, P2_pos + 16);
       client.publish("/sensor/p1/P2",P2);
-      SendInflux("P2 value=" + P2);
 
       int G1_pos = inputString.indexOf("0-1:24.2.1", P2_pos + 1);
       String G1 = inputString.substring(G1_pos + 26, G1_pos + 35);
       client.publish("/sensor/p1/G1",G1); 
-      SendInflux("G1 value=" + G1);
+      SendInflux("slimme_meter T1=" + T1 + ",T2=" + T2 + ",T7=" + T7 + ",T8=" + T8 + ",P1=" + P1 + ",P2=" + P2 + ",G1=" + G1);
 
       inputString = "";
    }
